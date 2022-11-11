@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-
 def reverse_string(word):
   drow = ''
   for char in word:

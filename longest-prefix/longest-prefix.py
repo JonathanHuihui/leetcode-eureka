@@ -13,8 +13,9 @@
 
 class Solution:
     def longestCommonPrefix(self, strs: list[str]) -> str:
-        prefix_set = []
+
         common_prefix = ""
+
         return common_prefix
 
 sol = Solution()
