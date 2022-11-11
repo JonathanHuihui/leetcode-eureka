@@ -1,4 +1,4 @@
-!/usr/bin/env python
+#!/usr/bin/env python
 
 
 def reverse_string(word):
