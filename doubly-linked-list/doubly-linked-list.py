@@ -4,6 +4,7 @@ class Node:
     def __init__(self, value):
         self.value = value
         self.next = None
+        self.prev = None
 
 class List:
     def __init__(self):
@@ -32,6 +33,13 @@ class List:
         # print the last value
         print(self.tail.value)
 
+    def reverseprint(self):
+        node = self.tail
+        while node.prev is not None:
+            print(node.value)
+            node = node.prev
+        # print the head value
+        print(self.head.value)
 
     def append(self, value):
         new = Node(value)
@@ -39,6 +47,7 @@ class List:
             self.head = new
             self.tail = new
         else:
+            new.prev = self.tail
             self.tail.next = new
             self.tail = new
         self.length += 1
@@ -50,6 +59,7 @@ class List:
             self.tail = new
         else: 
             new.next = self.head # set the new node to point to head
+            self.head.prev = new
             self.head = new # head is now new node
         self.length+=1
 
@@ -63,9 +73,15 @@ class List:
         elif index >= self.length:
             self.append(value)
         else:
-            lead = self._return_node(index-1) # get node at 1
+            lead = self._return_node(index-1) # get node before insert
+            rlead = self._return_node(index)  # get node at insert
+
             new.next = lead.next # set new nodes next to the next node
             lead.next = new # set node at 1 next to new node
+
+            new.prev = lead # set new node to point to lead as prev
+            rlead.prev = new # set node to point to new node as prev
+
             self.length += 1
 
     def remove(self, index):
@@ -80,27 +96,12 @@ class List:
             self.length -= 1
         else:
             lead = self._return_node(index-1) # get node before bad node
+            rlead = self._return_node(index+1) # get node after bad node
             old = lead.next # find the next node
             lead.next = old.next # store that node instead
+            rlead.prev = lead # 
             self.length -= 1
 
-    def reverse(self):
-        first = self.head
-        self.tail = self.head
-        second = self.head.next
-        while second:
-            third = second.next 
-            second.next = first # this changes the directionality of the pointer
-            first = second # holders for next iter
-            second = third # holder for next iter
-        self.head.next = None # this modifies the previous head
-        self.head = first # this sets new head to old tail
-
-# 0 1 2 3 5 7
-#                     1 2 
-# 0 < 1 < 2 < 3 < 5 < 7 < none
-# 0 tail property
-# 
 
 linked_list = List()
 linked_list.append(value=1)
@@ -111,8 +112,7 @@ linked_list.append(value=7)
 linked_list.prepend(value=0)
 linked_list.insert(2,2)
 linked_list.remove(index=5)
-linked_list.printlist()
-linked_list.reverse()
+linked_list.reverseprint()
 print('')
 linked_list.printlist()
 
