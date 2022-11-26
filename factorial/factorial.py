@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
-def factorial(number: int):
+def factorial(number):
     if number == 2:
         return number
-    number-=1
-    return (number+1)*factorial(number)
+    return (number)*factorial(number-1)
 
 def iteration(number: int) -> int:
     answer = number
